@@ -12,6 +12,11 @@ test('expect 1 + 1 to be correct', () => {
     .toEqual( [IntegerToken('1'), PLUS_TOKEN, IntegerToken('1')].join('') )
 });
 
+test('expect 1+1 to be equal to 1 + 1', () => {
+  expect( asapMathTokenizer.tokenize('1+1').join('') )
+    .toEqual( asapMathTokenizer.tokenize('1 + 1').join('') )
+});
+
 test('expect 1 - 1 to be correct', () => {
   expect( asapMathTokenizer.tokenize('1 - 1').join('') )
     .toEqual( [IntegerToken('1'), MINUS_TOKEN, IntegerToken('1')].join('') )
