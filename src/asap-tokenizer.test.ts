@@ -47,7 +47,7 @@ test('expect 1 ** 1 to be equal to 1 ^ 1', () => {
     .toEqual(asapMathTokenizer.tokenize('1 ^ 1'));
 });
 
-test('expect huge parsing to be correct', () => {
+test('expect huge tokenization to be correct', () => {
   const input = '1 + 1 - 1 * 1 / 1 ^ ( 1 + 1.25 ) +'.repeat(Math.pow(10, 3));
   const intToken = IntegerToken('1');
 
