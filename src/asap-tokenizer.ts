@@ -64,7 +64,6 @@ export class AsapTokenizer<TToken> {
         this.tokens = [];
         while (this.inputPos < this.inputLength) {
             this.current = 0;
-            this.next = 5;
             this.accFrom = this.inputPos;
             while ((this.next = this.transitions.get(this.current)!.get(this.input[this.inputPos])) !== undefined) {
                 ++this.inputPos;
