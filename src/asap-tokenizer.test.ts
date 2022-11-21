@@ -32,6 +32,33 @@ test('expect 1 . 1 to throw', () => {
     .toThrow();
 });
 
+test('expect 1 * 1 to be correct', () => {
+  expect(asapMathTokenizer.tokenize('1 * 1'))
+    .toEqual([IntegerToken('1'), TIMES_TOKEN, IntegerToken('1')])
+});
+
+test('expect 1 ^ 1 to be correct', () => {
+  expect(asapMathTokenizer.tokenize('1 ^ 1'))
+    .toEqual([IntegerToken('1'), POW_TOKEN, IntegerToken('1')])
+});
+
+test('expect 1 ** 1 to be equal to 1 ^ 1', () => {
+  expect(asapMathTokenizer.tokenize('1 ** 1'))
+    .toEqual(asapMathTokenizer.tokenize('1 ^ 1'));
+});
+
+test('expect huge parsing to be correct', () => {
+  const input = '1 + 1 - 1 * 1 / 1 ^ ( 1 + 1.25 ) +'.repeat(Math.pow(10, 3));
+  const intToken = IntegerToken('1');
+
+  expect(asapMathTokenizer.tokenize(input).join(''))
+    .toEqual([
+      intToken, PLUS_TOKEN, intToken, MINUS_TOKEN, intToken, TIMES_TOKEN,
+      intToken, DIVIDE_TOKEN, intToken, POW_TOKEN, LDelimToken('('), intToken,
+      PLUS_TOKEN, FractionalToken('1.25'), RDelimToken(')'), PLUS_TOKEN
+    ].join('').repeat(Math.pow(10, 3)));
+});
+
 const PLUS_TOKEN = 'PlusToken';
 const MINUS_TOKEN = 'MinusToken';
 const TIMES_TOKEN = 'TimesToken';
