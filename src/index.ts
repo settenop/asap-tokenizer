@@ -1,1 +1,0 @@
-export const echo = (str: string) => str;
