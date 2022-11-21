@@ -1,5 +1,5 @@
 import {describe, expect, test} from '@jest/globals';
-import { AsapTokenizer, TokenMutator } from './asap-tokenizer';
+import { AsapTokenizer } from './asap-tokenizer';
 
 
 let asapMathTokenizer: AsapTokenizer<string> = null!; 
