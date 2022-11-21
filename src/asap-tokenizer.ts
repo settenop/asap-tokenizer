@@ -1,3 +1,5 @@
+import { TransitionBuilder } from "./transition-builder";
+
 export interface TokenMutator<TToken> {
     pusher: (tok: TToken) => void,
     reader: () => string
@@ -23,13 +25,13 @@ export class AsapTokenizer<TToken> {
     // state id to map of char to state id
     private transitions: Map<number, Map<string, number>> = new Map();
 
-    public addState(id: number, state: AsapState<TToken>) : AsapTokenizer<TToken> {
+    public addState(id: number, state: AsapState<TToken>) : TransitionBuilder<TToken> {
         if (this.states.has(id)) {
             throw new Error(`Attempted to add state ${id}, but it already exists.`);
         }
         this.states.set(id, state);
         this.transitions.set(id, new Map());
-        return this;
+        return new TransitionBuilder(this, id);
     }
 
     public addTransition(on: string, from: number, to: number) : AsapTokenizer<TToken> {
